@@ -4,13 +4,17 @@ package main
 import (
 	"fmt"
 
+	"github.com/giovfranz1234/E_commerceXZY/internal/handler"
 	"github.com/giovfranz1234/E_commerceXZY/internal/server"
 )
 
 func main() {
 	//Aqui se puede crear el servidor y configurarlo con las opciones deseadas
 	srv := server.New(":8080")
+	userHandler := handler.NewUserHandler()
+	srv.RegisterRoutes("GET /listUser", userHandler)
 
-	fmt.Println("Hello, World!")
-
+	if err := srv.Start(); err != nil {
+		fmt.Println("Error starting server:", err)
+	}
 }
