@@ -19,12 +19,12 @@ type UserResponse struct {
 	Version string `json:"version"`
 }
 
-func (handle *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (handle *UserHandler) ServeHTTP(w http.ResponseWriter, _ *http.Request) {
 	response := UserResponse{
 		Status:  "ok",
 		Version: "1.0.0",
 	}
-	w.Header().Set("GET /listuser", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
